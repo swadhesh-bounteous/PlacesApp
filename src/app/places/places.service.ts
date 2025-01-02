@@ -6,11 +6,11 @@ import { Place } from './place.model';
 export class PlacesService {
 
   private _places: Place[] = [
-    new Place('p1', 'Manhattan Mansion', 'In the heart of New York City.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 149.99),
-    new Place('p2', 'Sunny Beach House', 'A beautiful beach house in Miami, Florida.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 199.99),
-    new Place('p3', 'Mountain Retreat', 'A cozy cabin in the Rocky Mountains.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 120.00),
-    new Place('p4', 'Modern Downtown Loft', 'Stylish loft in the heart of Chicago.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 180.50),
-    new Place('p5', 'Parisian Apartment', 'Charming apartment overlooking the Eiffel Tower.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 220.75)
+    new Place('p1', 'Manhattan Mansion', 'In the heart of New York City.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 149.99, new Date('2021-01-01'), new Date('2021-12-31')),
+    new Place('p2', 'Sunny Beach House', 'A beautiful beach house in Miami, Florida.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 199.99, new Date('2021-01-01'), new Date('2021-12-31')),
+    new Place('p3', 'Mountain Retreat', 'A cozy cabin in the Rocky Mountains.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 120.00, new Date('2021-01-01'), new Date('2021-12-31')),
+    new Place('p4', 'Modern Downtown Loft', 'Stylish loft in the heart of Chicago.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 180.50, new Date('2021-01-01'), new Date('2021-12-31')),
+    new Place('p5', 'Parisian Apartment', 'Charming apartment overlooking the Eiffel Tower.', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/69/Luchtfoto_van_Lower_Manhattan.jpg/800px-Luchtfoto_van_Lower_Manhattan.jpg', 220.75, new Date('2021-01-01'), new Date('2021-12-31'))
   ]; 
 
   get places(){

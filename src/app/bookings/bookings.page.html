@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar color="primary">
+  <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button menu="m1"></ion-menu-button>
     </ion-buttons>
@@ -12,7 +12,10 @@
     <ion-row>
       <ion-col size-md="6" offset="3">
         <ion-list>
-          <ion-item-sliding *ngFor="let booking of loadedBookings" #slidingBooking>
+          <ion-item-sliding
+            *ngFor="let booking of loadedBookings"
+            #slidingBooking
+          >
             <ion-item>
               <ion-label>
                 <h5>{{ booking.placeTitle }}</h5>
@@ -20,7 +23,10 @@
               </ion-label>
             </ion-item>
             <ion-item-options>
-              <ion-item-option color="danger" (click)="onCancelBooking(booking?.id, slidingBooking)">
+              <ion-item-option
+                color="danger"
+                (click)="onCancelBooking(booking?.id, slidingBooking)"
+              >
                 <ion-icon slot="icon-only" name="trash"></ion-icon>
               </ion-item-option>
             </ion-item-options>
@@ -28,5 +34,5 @@
         </ion-list>
       </ion-col>
     </ion-row>
-  </ion-grid> 
+  </ion-grid>
 </ion-content>

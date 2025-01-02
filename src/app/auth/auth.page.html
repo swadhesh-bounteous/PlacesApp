@@ -1,20 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Authenticate</ion-title>
+    <ion-title>{{ isLogin ? 'Login' : 'Signup'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-label position="floating">E-mail</ion-label>
-      <ion-input></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
-    </ion-item>
-  </ion-list>
-  <!-- <ion-spinner *ngIf="isLoading"></ion-spinner> -->
-  <ion-button color="primary" (click)="onLogin()"> Login </ion-button>
+<ion-content class="ion-padding">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-list>
+            <ion-item [class.invalid]="email.invalid && email.touched">
+              <ion-label position="floating">E-mail</ion-label>
+              <ion-input 
+                type="email" 
+                ngModel 
+                name="email" 
+                required 
+                email 
+                #email="ngModel">
+              </ion-input>
+            </ion-item>
+            <div *ngIf="email.invalid && email.touched" class="error-message">
+              <div *ngIf="email.errors?.['required']">E-mail is required.</div>
+              <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
+            </div>
+
+            <ion-item [class.invalid]="password.invalid && password.touched">
+              <ion-label position="floating">Password</ion-label>
+              <ion-input 
+                type="password" 
+                ngModel 
+                name="password" 
+                required 
+                minlength="6" 
+                #password="ngModel">
+              </ion-input>
+            </ion-item>
+            <div *ngIf="password.invalid && password.touched" class="error-message">
+              <div *ngIf="password.errors?.['required']">Password is required.</div>
+              <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col size-sm="6" offset-sm="3">
+          <ion-button type="button" color="primary" fill="clear" expand="block" (click)="onSwitchAuthMode()">Switch to {{ isLogin ? 'Signup' : 'Login'}}</ion-button>
+          <ion-button type="submit" color="primary" expand="block" [disabled]="f.invalid" (click)="onLogin()">Login</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
 </ion-content>
