@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PlacesService } from '../places.service';
 import { Place } from '../place.model';
 import { MenuController, SegmentChangeEventDetail } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-discover',
@@ -9,20 +11,46 @@ import { MenuController, SegmentChangeEventDetail } from '@ionic/angular';
   templateUrl: './discover.page.html',
   styleUrls: ['./discover.page.scss'],
 })
-export class DiscoverPage implements OnInit {
+export class DiscoverPage implements OnInit, OnDestroy {
 
   loadedPlaces!: Place[];
-  constructor(private placesService: PlacesService, private menuCtrl: MenuController) { }
+  listLoadedPlaces!: Place[];
+  relevantPlaces!: Place[];
+  isLoading = false;
+
+  private placesSub!: Subscription;
+  constructor(private placesService: PlacesService, private menuCtrl: MenuController, private authService: AuthService) { }
 
   ngOnInit() {
-    this.loadedPlaces = this.placesService.places;
+    this.placesSub = this.placesService.places.subscribe(places => {
+      this.loadedPlaces = places;
+      this.relevantPlaces = this.loadedPlaces;
+      this.listLoadedPlaces = this.relevantPlaces.slice(1);
+    });
   }
 
-  // onOpenMenu(){
-  //   this.menuCtrl.toggle();
-  // }
+  ionViewWillEnter(){
+    this.isLoading = true;
+    this.placesService.fetchPlaces().subscribe(()=>{
+      this.isLoading = false;
+    });
+  }
 
   onFilterUpdate(event: CustomEvent<SegmentChangeEventDetail>){
+    if(event.detail.value === 'all'){
+      this.relevantPlaces = this.loadedPlaces;
+      this.listLoadedPlaces = this.relevantPlaces.slice(1);
+    }
+    else{
+      this.relevantPlaces = this.loadedPlaces.filter(place => place.userId !== this.authService.userId);
+      this.listLoadedPlaces = this.relevantPlaces.slice(1);
+    }
     console.log(event.detail);
+  }
+
+  ngOnDestroy(): void {
+    if (this.placesSub) {
+      this.placesSub.unsubscribe();
+    }
   }
 }
